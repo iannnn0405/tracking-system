@@ -1,0 +1,220 @@
+.navbar {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 94%;
+  max-width: 1200px;
+  padding: 8px 16px;
+  background: var(--bg-nav);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid var(--border-nav);
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar.scrolled {
+  top: 10px;
+  width: 96%;
+  background: var(--bg-nav);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.logoIcon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.logoText {
+  font-family: var(--font-unbounded);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+/* Links Drawer */
+.navLinks {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.navLinks.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.navLinks a {
+  font-family: var(--font-kulim-park);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+/* Actions */
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.themeToggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.loginBtn, .getStartedBtn {
+  display: none; /* Hidden on mobile */
+}
+
+.hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Mobile Specific Actions inside Drawer */
+.mobileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.loginBtnMobile {
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  font-family: var(--font-kulim-park);
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.getStartedBtnMobile {
+  padding: 14px;
+  background: linear-gradient(90deg, #2563eb, #0ea5e9);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-kulim-park);
+  font-weight: 700;
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .navbar {
+    padding: 10px 32px;
+    border-radius: 9999px;
+  }
+
+  .hamburger, .mobileActions {
+    display: none;
+  }
+
+  .navLinks {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    background: transparent;
+    border: none;
+    padding: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    width: auto;
+    gap: 32px;
+  }
+
+  .navLinks a {
+    font-size: 0.95rem;
+  }
+
+  .navLinks a:hover {
+    color: var(--accent-blue);
+  }
+
+  .loginBtn {
+    display: flex;
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    font-family: var(--font-kulim-park);
+    font-weight: 500;
+    color: var(--text-primary);
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .getStartedBtn {
+    display: block;
+    padding: 10px 24px;
+    background: linear-gradient(90deg, #2563eb, #0ea5e9);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-family: var(--font-kulim-park);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+  }
+}

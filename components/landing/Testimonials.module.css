@@ -1,0 +1,71 @@
+.section {
+  padding: 80px 20px;
+  background: var(--bg-primary);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-family: var(--font-unbounded);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.quote {
+  font-family: var(--font-kulim-park);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+}
+
+.name {
+  font-family: var(--font-kulim-park);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  .section { padding: 100px 40px; }
+  .title { font-size: 2.8rem; letter-spacing: -1.5px; }
+  .grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { padding: 36px 32px; }
+}
