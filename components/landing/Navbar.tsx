@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Menu, X, Moon, Sun, LogIn } from 'lucide-react';
+import Link from 'next/link';
+import { LayoutDashboard, Menu, X, Moon, Sun } from 'lucide-react';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
@@ -9,7 +10,6 @@ export default function Navbar() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    // 1. Sync theme state with the document attribute on load
     const currentTheme = document.documentElement.getAttribute('data-theme') as 'light' | 'dark';
     if (currentTheme) setTheme(currentTheme);
 
@@ -28,12 +28,12 @@ export default function Navbar() {
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''} ${isOpen ? styles.menuOpen : ''}`}>
       <div className={styles.navContainer}>
-        <div className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           <div className={styles.logoIcon}>
             <LayoutDashboard size={24} />
           </div>
           <span className={styles.logoText}>PolyTrack</span>
-        </div>
+        </Link>
 
         <div className={`${styles.navLinks} ${isOpen ? styles.active : ''}`}>
           <a href="#features" onClick={() => setIsOpen(false)}>Features</a>
@@ -42,15 +42,14 @@ export default function Navbar() {
           <a href="#testimonials" onClick={() => setIsOpen(false)}>Testimonials</a>
           
           <div className={styles.mobileActions}>
-            <button className={styles.loginBtnMobile}>
-              <LogIn size={18} /> Login
-            </button>
+            <Link href="/login" className={styles.loginBtnMobile} onClick={() => setIsOpen(false)}>
+              Login
+            </Link>
             <button className={styles.getStartedBtnMobile}>Get Started Free</button>
           </div>
         </div>
 
         <div className={styles.navActions}>
-          {/* FIXED: Conditional Rendering for Icon */}
           <button 
             className={styles.themeToggle} 
             onClick={toggleTheme} 
@@ -63,9 +62,9 @@ export default function Navbar() {
             )}
           </button>
           
-          <button className={styles.loginBtn}>
-            <LogIn size={18} /> Login
-          </button>
+          <Link href="/login" className={styles.loginBtn}>
+            Login
+          </Link>
           
           <button className={styles.getStartedBtn}>Get Started Free</button>
 

@@ -33,6 +33,14 @@
   --stat-bg: rgba(37, 99, 235, 0.06);
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.9);
+  --sidebar-bg: #f5f5f5;
+  --sidebar-border: #e5e7eb;
+  --icon-bg: rgba(0, 0, 0, 0.05);
+  --icon-bg-hover: rgba(37, 99, 235, 0.1);
+  --item-hover-bg: rgba(37, 99, 235, 0.05);
+  --item-hover-border: rgba(37, 99, 235, 0.15);
+  --scrollbar-thumb: #ccc;
+  --scrollbar-thumb-hover: #aaa;
 }
 
 [data-theme="dark"] {
@@ -64,6 +72,14 @@
   --stat-bg: rgba(59, 130, 246, 0.08);
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.1);
+  --sidebar-bg: #1a1a1a;
+  --sidebar-border: #2a2a2a;
+  --icon-bg: rgba(255, 255, 255, 0.08);
+  --icon-bg-hover: rgba(96, 165, 250, 0.15);
+  --item-hover-bg: rgba(255, 255, 255, 0.05);
+  --item-hover-border: rgba(255, 255, 255, 0.08);
+  --scrollbar-thumb: #4a4a4a;
+  --scrollbar-thumb-hover: #5a5a5a;
 }
 
 html {
@@ -72,7 +88,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-kulim-park), 'Inter', system-ui, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;

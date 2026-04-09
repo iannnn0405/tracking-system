@@ -2,6 +2,7 @@
 import { Unbounded, Kulim_Park } from "next/font/google";
 import "./globals.css";
 import { useEffect, useState } from "react";
+import { Toaster } from 'sileo';
 
 const unbounded = Unbounded({
   subsets: ["latin"],
@@ -42,7 +43,9 @@ export default function RootLayout({
             document.documentElement.setAttribute('data-theme', saved || preferred);
           })();
         ` }} />
-        {children}
+        <Toaster position="top-center" theme="system">
+          {children}
+        </Toaster>
       </body>
     </html>
   );

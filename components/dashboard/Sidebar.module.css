@@ -1,0 +1,177 @@
+.sidebar {
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 12px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.collapsed {
+  width: 64px;
+}
+
+.expanded {
+  width: 240px;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 4px;
+}
+
+.brandIcon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-family: var(--font-unbounded);
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  color: #64748b;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.navItem:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.label {
+  font-family: var(--font-kulim-park);
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 8px;
+}
+
+.toggleHint {
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  z-index: 10;
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100% !important;
+    height: 65px;
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 0 12px;
+    border-right: none;
+    border-top: 1px solid #e2e8f0;
+    cursor: default;
+  }
+
+  .brand, 
+  .bottomSection, 
+  .toggleHint {
+    display: none;
+  }
+
+  .topSection {
+    width: 100%;
+    gap: 0;
+  }
+
+  .nav {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+  }
+
+  .navItem {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .iconWrapper {
+    width: auto;
+  }
+
+  .label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-weight: 700;
+  }
+}
