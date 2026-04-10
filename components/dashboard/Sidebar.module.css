@@ -6,19 +6,16 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 16px 12px;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
   user-select: none;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.collapsed {
-  width: 64px;
-}
-
-.expanded {
-  width: 240px;
-}
+.collapsed { width: 80px; }
+.expanded { width: 260px; }
 
 .topSection {
   display: flex;
@@ -30,14 +27,14 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-left: 4px;
+  padding-left: 10px;
 }
 
 .brandIcon {
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   background: linear-gradient(135deg, #2563eb, #0ea5e9);
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,133 +42,128 @@
 }
 
 .brandName {
-  font-family: var(--font-unbounded);
-  font-weight: 700;
-  font-size: 1rem;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 800;
   color: #0f172a;
+  font-size: 1.1rem;
   white-space: nowrap;
+  animation: fadeInRight 0.3s ease forwards;
 }
 
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .navItem {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: 12px;
   color: #64748b;
+  text-decoration: none;
   transition: all 0.2s ease;
-  cursor: pointer;
+  white-space: nowrap;
 }
 
 .navItem:hover {
-  background: #f1f5f9;
+  background: #f8fafc;
   color: #2563eb;
+}
+
+.active {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 700;
 }
 
 .iconWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  flex-shrink: 0;
+  min-width: 20px;
 }
 
 .label {
-  font-family: var(--font-kulim-park);
+  font-size: 0.95rem;
   font-weight: 600;
-  font-size: 0.9rem;
-  white-space: nowrap;
+  animation: fadeInRight 0.3s ease forwards;
 }
 
 .bottomSection {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-bottom: 8px;
+  gap: 8px;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
 }
 
 .toggleHint {
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 50%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding-top: 10px;
   color: #94a3b8;
-  z-index: 10;
 }
 
-.chevron {
-  transition: transform 0.3s ease;
-}
+.chevron { transition: transform 0.3s ease; }
+.rotate { transform: rotate(180deg); }
 
-.rotate {
-  transform: rotate(180deg);
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 100% !important;
-    height: 65px;
-    flex-direction: row;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    padding: 0 12px;
-    border-right: none;
-    border-top: 1px solid #e2e8f0;
-    cursor: default;
-  }
-
-  .brand, 
-  .bottomSection, 
-  .toggleHint {
-    display: none;
-  }
-
-  .topSection {
-    width: 100%;
-    gap: 0;
+    position: fixed !important;
+    bottom: 15px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 95% !important;
+    height: 70px !important;
+    max-width: 500px !important;
+    border-radius: 20px !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    padding: 0 10px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px);
+    z-index: 9999 !important;
+    border: 1px solid #e2e8f0 !important;
   }
 
   .nav {
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: row !important;
     width: 100%;
-    height: 100%;
+    justify-content: space-evenly;
     gap: 0;
   }
 
   .navItem {
     flex-direction: column;
-    gap: 4px;
-    padding: 8px;
+    gap: 2px;
+    padding: 8px 4px;
+    background: transparent !important;
+    border-radius: 0;
     flex: 1;
-    justify-content: center;
-  }
-
-  .iconWrapper {
-    width: auto;
   }
 
   .label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    font-size: 9px;
     font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .active {
+    color: #2563eb;
+  }
+
+  /* Hide elements that don't fit the mobile dock */
+  .brand, .bottomSection, .toggleHint {
+    display: none !important;
   }
 }

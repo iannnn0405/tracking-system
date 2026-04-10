@@ -44,14 +44,14 @@
 }
 
 [data-theme="dark"] {
-  --bg-primary: #0a1428;
-  --bg-secondary: #0f1c38;
-  --bg-card: rgba(255, 255, 255, 0.06);
-  --bg-card-hover: rgba(255, 255, 255, 0.1);
-  --bg-nav: rgba(10, 20, 40, 0.88);
-  --bg-hero: linear-gradient(135deg, #0a1428 0%, #0f1c38 100%);
-  --bg-section-alt: #0d1730;
-  --bg-footer: #060e1f;
+  --bg-primary: #0d1b2a;
+  --bg-secondary: #1a2a3f;
+  --bg-card: rgba(59, 130, 246, 0.08);
+  --bg-card-hover: rgba(96, 165, 250, 0.12);
+  --bg-nav: rgba(13, 27, 42, 0.92);
+  --bg-hero: linear-gradient(135deg, #0d1b2a 0%, #1a2a3f 50%, #1e3a5f 100%);
+  --bg-section-alt: #1a2a3f;
+  --bg-footer: #0a1520;
   --text-primary: #ffffff;
   --text-secondary: #cbd5e1;
   --text-muted: #64748b;
@@ -72,12 +72,12 @@
   --stat-bg: rgba(59, 130, 246, 0.08);
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --sidebar-bg: #1a1a1a;
-  --sidebar-border: #2a2a2a;
-  --icon-bg: rgba(255, 255, 255, 0.08);
+  --sidebar-bg: #15233a;
+  --sidebar-border: #253349;
+  --icon-bg: rgba(96, 165, 250, 0.08);
   --icon-bg-hover: rgba(96, 165, 250, 0.15);
-  --item-hover-bg: rgba(255, 255, 255, 0.05);
-  --item-hover-border: rgba(255, 255, 255, 0.08);
+  --item-hover-bg: rgba(59, 130, 246, 0.08);
+  --item-hover-border: rgba(96, 165, 250, 0.2);
   --scrollbar-thumb: #4a4a4a;
   --scrollbar-thumb-hover: #5a5a5a;
 }

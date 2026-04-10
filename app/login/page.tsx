@@ -1,5 +1,7 @@
 'use client';
 import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   ArrowLeft,
@@ -10,10 +12,93 @@ import {
   Users,
   Bell,
 } from 'lucide-react';
+import { sileo } from 'sileo';
+import { supabase } from '@/lib/supabase';
 import styles from './login.module.css';
 
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleEmailSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email.trim() || !password.trim()) {
+      sileo.error({
+        title: 'Missing Credentials',
+        description: 'Please enter both email and password',
+        duration: 3000,
+      });
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) throw error;
+
+      if (data.user) {
+        sileo.success({
+          title: 'Welcome back!',
+          description: 'Redirecting to dashboard...',
+          duration: 2000,
+        });
+
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 2000);
+      }
+    } catch (error: any) {
+      sileo.error({
+        title: 'Sign In Failed',
+        description: error.message || 'Invalid email or password',
+        duration: 4000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsLoading(true);
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?type=signin`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+        },
+      });
+
+      if (error) throw error;
+
+      sileo.success({
+        title: 'Redirecting to Google',
+        description: 'Please complete the sign-in process in the Google window.',
+        duration: 3000,
+      });
+    } catch (error: any) {
+      sileo.error({
+        title: 'Google Sign In Failed',
+        description: error.message || 'Please try again',
+        duration: 4000,
+      });
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
 
@@ -77,7 +162,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleEmailSignIn}>
 
           {/* Email field */}
           <div className={styles.fieldGroup}>
@@ -87,6 +172,9 @@ export default function LoginPage() {
               placeholder=" "
               required
               autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
             />
             <label htmlFor="email">Institutional Email</label>
             <Mail className={styles.fieldIcon} size={16} />
@@ -101,6 +189,9 @@ export default function LoginPage() {
               placeholder=" "
               required
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoading}
             />
             <label htmlFor="password">Password</label>
             <Lock className={styles.fieldIcon} size={16} />
@@ -110,28 +201,33 @@ export default function LoginPage() {
           {/* Options */}
           <div className={styles.options}>
             <label className={styles.remember}>
-              <input type="checkbox" /> Remember me
+              <input type="checkbox" disabled={isLoading} /> Remember me
             </label>
             <a href="#" className={styles.forgot}>Forgot password?</a>
           </div>
 
-          <button type="submit" className={styles.submitBtn}>
-            Sign In to PolyTrack
+          <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+            {isLoading ? 'Signing In...' : 'Sign In to PolyTrack'}
           </button>
 
           <div className={styles.divider}>or</div>
 
-          <button type="button" className={styles.ssoBtn}>
+          <button 
+            type="button" 
+            className={styles.ssoBtn}
+            onClick={handleGoogleSignIn}
+            disabled={isLoading}
+          >
             <span className={styles.ssoIcon}>
               <LayoutDashboard size={11} color="white" />
             </span>
-            Continue with Institutional SSO
+            {isLoading ? 'Signing In...' : 'Continue with Google'}
           </button>
         </form>
 
         <p className={styles.footerText}>
           Don't have an account?{' '}
-          <Link href="/register">Contact your Admin</Link>
+          <Link href="/register">Create Account</Link>
         </p>
       </div>
 

@@ -8,9 +8,9 @@ import {
   Users, 
   CheckCircle, 
   XCircle, 
-  Zap, 
-  Bell,
-  Clock
+  Clock,
+  MapPin,
+  History
 } from 'lucide-react';
 import styles from './dashboard.module.css';
 
@@ -40,30 +40,10 @@ function FlippingStatCard({ label, val, icon, description }: any) {
 
 export default function DashboardPage() {
   const stats = [
-    { 
-      label: 'Total Events', 
-      val: '24', 
-      icon: <Users size={16} />, 
-      desc: 'Sum of all workshops, seminars, and laboratory sessions recorded this term.' 
-    },
-    { 
-      label: 'Attendance', 
-      val: '88%', 
-      icon: <CheckCircle size={16} />, 
-      desc: 'Real-time percentage of scheduled hours verified by the system.' 
-    },
-    { 
-      label: 'Absences', 
-      val: '04', 
-      icon: <XCircle size={16} />, 
-      desc: 'Count of missed sessions currently requiring faculty excuse documentation.' 
-    },
-    { 
-      label: 'Upcoming', 
-      val: '07', 
-      icon: <Clock size={16} />, 
-      desc: 'Events and requirements scheduled within the next seven calendar days.' 
-    },
+    { label: 'Total Events', val: '24', icon: <Users size={16} />, desc: 'All academic and institutional sessions this semester.' },
+    { label: 'Attendance', val: '88%', icon: <CheckCircle size={16} />, desc: 'Real-time verified presence across your modules.' },
+    { label: 'Absences', val: '04', icon: <XCircle size={16} />, desc: 'Missed sessions requiring official documentation.' },
+    { label: 'Upcoming', val: '07', icon: <Clock size={16} />, desc: 'Scheduled events within the next seven days.' },
   ];
 
   return (
@@ -88,59 +68,76 @@ export default function DashboardPage() {
         </section>
 
         <div className={styles.mainGrid}>
-          <section className={styles.activityCard}>
+          {/* LEFT: Upcoming Events (Big Card) */}
+          <section className={styles.mainCard}>
             <div className={styles.cardHeader}>
-              <Zap size={20} color="#2563eb" />
-              <h2>Recent Engagement</h2>
+              <Calendar size={20} color="#2563eb" />
+              <h2>Upcoming Events</h2>
             </div>
             <div className={styles.list}>
               <div className={styles.listItem}>
                 <div className={`${styles.iconBox} ${styles.blueBox}`}>
-                  <CheckCircle size={20} />
-                </div>
-                <div className={styles.itemInfo}>
-                  <h4>Verified Physics Seminar</h4>
-                  <p>Today at 10:30 AM • Auditorium A</p>
-                </div>
-              </div>
-              <div className={styles.listItem}>
-                <div className={`${styles.iconBox} ${styles.redBox}`}>
-                  <XCircle size={20} />
-                </div>
-                <div className={styles.itemInfo}>
-                  <h4>Unattended Lab Session</h4>
-                  <p>Yesterday at 2:00 PM • Chemistry Lab B</p>
-                </div>
-              </div>
-              <div className={styles.listItem}>
-                <div className={`${styles.iconBox} ${styles.yellowBox}`}>
                   <Clock size={20} />
                 </div>
                 <div className={styles.itemInfo}>
-                  <h4>Pending Evaluation</h4>
-                  <p>2 days ago • Portal Submission</p>
+                  <h4>Advanced Physics Lecture</h4>
+                  <p>Tomorrow at 09:00 AM • Room 101 • Prof. Richards</p>
+                </div>
+              </div>
+              <div className={styles.listItem}>
+                <div className={`${styles.iconBox} ${styles.blueBox}`}>
+                  <MapPin size={20} />
+                </div>
+                <div className={styles.itemInfo}>
+                  <h4>Institutional Workshop</h4>
+                  <p>Wednesday at 02:00 PM • Main Hall B • Career Services</p>
+                </div>
+              </div>
+              <div className={styles.listItem}>
+                <div className={`${styles.iconBox} ${styles.blueBox}`}>
+                  <Calendar size={20} />
+                </div>
+                <div className={styles.itemInfo}>
+                  <h4>Departmental Seminar</h4>
+                  <p>Friday at 11:00 AM • Virtual Hall • Dr. Miller</p>
                 </div>
               </div>
             </div>
           </section>
 
-          <section className={styles.announcementCard}>
+          {/* RIGHT: Activity History (Side Card) */}
+          <section className={styles.sideCard}>
             <div className={styles.cardHeader}>
-              <Bell size={20} color="#2563eb" />
-              <h2>Notice Board</h2>
+              <History size={20} color="#2563eb" />
+              <h2>Event History</h2>
             </div>
-            <div className={styles.announcementStack}>
-              <div className={styles.announcement}>
-                <h4>Schedule Update</h4>
-                <p>Morning sessions for Engineering blocks have moved to Room 201.</p>
+            <div className={styles.historyStack}>
+              <div className={styles.historyItem}>
+                <div className={`${styles.iconBox} ${styles.greenBox}`}>
+                  <CheckCircle size={18} />
+                </div>
+                <div className={styles.historyInfo}>
+                  <h4>History of Arts</h4>
+                  <p>Attended • Monday at 10:00 AM</p>
+                </div>
               </div>
-              <div className={styles.announcement}>
-                <h4>Attendance Policy</h4>
-                <p>Ensure your digital ID is scanned within 15 minutes of session start.</p>
+              <div className={styles.historyItem}>
+                <div className={`${styles.iconBox} ${styles.redBox}`}>
+                  <XCircle size={18} />
+                </div>
+                <div className={styles.historyInfo}>
+                  <h4>Chemistry Lab</h4>
+                  <p>Missed • Oct 14 at 02:00 PM</p>
+                </div>
               </div>
-              <div className={styles.announcement}>
-                <h4>Holiday Notice</h4>
-                <p>Institutional services will be suspended for the upcoming long weekend.</p>
+              <div className={styles.historyItem}>
+                <div className={`${styles.iconBox} ${styles.greenBox}`}>
+                  <CheckCircle size={18} />
+                </div>
+                <div className={styles.historyInfo}>
+                  <h4>English Composition</h4>
+                  <p>Attended • Oct 12 at 01:00 PM</p>
+                </div>
               </div>
             </div>
           </section>

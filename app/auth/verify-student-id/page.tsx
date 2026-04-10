@@ -53,15 +53,23 @@ export default function VerifyStudentID() {
     try {
       setIsLoading(true);
 
-      // Update user metadata with student ID
-      const { error } = await supabase.auth.updateUser({
+      // Update student record with student ID
+      const { error: updateError } = await supabase
+        .from('students')
+        .update({ student_id: studentId.trim() })
+        .eq('id', user.id);
+
+      if (updateError) throw updateError;
+
+      // Also update auth metadata
+      const { error: authError } = await supabase.auth.updateUser({
         data: {
           student_id: studentId.trim(),
           verified: true,
         },
       });
 
-      if (error) throw error;
+      if (authError) throw authError;
 
       sileo.success({
         title: 'Student ID Verified!',

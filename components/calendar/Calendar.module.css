@@ -1,0 +1,218 @@
+.wrapper {
+  padding: 2.5rem;
+  min-height: 100vh;
+  font-family: 'Kulim Park', sans-serif;
+  position: relative;
+  background-color: #f0f7ff;
+}
+
+.header h1 {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: #64748b;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  width: 100%;
+}
+
+.glassCard {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: fit-content;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.monthDisplay h2 {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.navControls {
+  display: flex;
+  gap: 8px;
+}
+
+.navBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.dayLabel {
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+}
+
+.mobileDayLabel { display: none; }
+.desktopDayLabel { display: block; }
+
+.dayCell {
+  aspect-ratio: 1 / 1.1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  color: #475569;
+  border: 1px solid transparent;
+  gap: 2px;
+  font-size: 0.9rem;
+}
+
+.dayCell:hover { background: white; }
+
+.activeDay {
+  background: #2563eb !important;
+  color: white !important;
+}
+
+.todayHighlight { border: 1.5px solid #2563eb; }
+
+.upcomingTag, .todayTag {
+  font-size: 0.5rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upcomingTag { background: #fef2f2; color: #dc2626; }
+.todayTag { background: #eff6ff; color: #2563eb; }
+
+.activeDay .upcomingTag, .activeDay .todayTag {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.emptyCell { aspect-ratio: 1 / 1.1; }
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.sidebarHeader h3 {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.timeline { display: flex; flex-direction: column; gap: 1rem; }
+.timelineItem { display: flex; gap: 0.75rem; }
+.timeInfo { min-width: 55px; }
+
+.timeInfo .time {
+  display: block;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.75rem;
+}
+
+.eventCard {
+  flex: 1;
+  background: white;
+  padding: 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #f1f5f9;
+}
+
+.eventTitle {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.eventLocation {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 2rem 1rem;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #94a3b8;
+}
+
+@media (max-width: 1100px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .wrapper { padding: 1.5rem; padding-bottom: 100px; }
+  .glassCard { padding: 1.25rem; }
+  .calendarGrid { gap: 4px; }
+  .dayCell { font-size: 0.8rem; border-radius: 6px; }
+  .upcomingTag, .todayTag { font-size: 0.45rem; padding: 1px 2px; }
+}
+
+@media (max-width: 600px) {
+  .mobileDayLabel { display: block; }
+  .desktopDayLabel { display: none; }
+}
+
+@media (max-width: 480px) {
+  .header h1 { font-size: 1.5rem; }
+  .upcomingTag, .todayTag {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    color: transparent;
+    padding: 0;
+  }
+}

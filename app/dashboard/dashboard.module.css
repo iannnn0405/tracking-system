@@ -109,7 +109,7 @@
   gap: 1.5rem;
 }
 
-.activityCard {
+.mainCard {
   grid-column: span 8;
   background: #ffffff;
   border-radius: 8px;
@@ -117,7 +117,7 @@
   border: 1px solid rgba(37, 99, 235, 0.12);
 }
 
-.announcementCard {
+.sideCard {
   grid-column: span 4;
   background: #ffffff;
   border-radius: 8px;
@@ -164,6 +164,7 @@
 .blueBox { background: #eff6ff; color: #2563eb; }
 .yellowBox { background: #fffbeb; color: #d97706; }
 .redBox { background: #fef2f2; color: #dc2626; }
+.greenBox { background: #f0fdf4; color: #16a34a; }
 
 .itemInfo h4 {
   font-weight: 700;
@@ -178,38 +179,39 @@
   margin-top: 4px;
 }
 
-.announcementStack { display: flex; flex-direction: column; gap: 1rem; }
+.historyStack { display: flex; flex-direction: column; gap: 1rem; }
 
-.announcement {
-  padding: 1.25rem;
+.historyItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem;
   border-radius: 8px;
   background: #fafcfe;
   border: 1px solid #eef2ff;
 }
 
-.announcement h4 {
+.historyInfo h4 {
   font-size: 0.85rem;
   font-weight: 700;
   color: #1e293b;
 }
 
-.announcement p {
+.historyInfo p {
   font-size: 0.75rem;
   color: #64748b;
-  margin-top: 6px;
-  line-height: 1.5;
+  margin-top: 2px;
 }
 
 @media (max-width: 1024px) {
   .statsGrid { grid-template-columns: repeat(2, 1fr); }
-  .activityCard { grid-column: span 12; }
-  .announcementCard { grid-column: span 12; }
+  .mainCard, .sideCard { grid-column: span 12; }
 }
 
 @media (max-width: 768px) {
   .wrapper { padding: 1.5rem; padding-bottom: 100px; }
   .mainGrid { grid-template-columns: 1fr; }
-  .activityCard, .announcementCard { grid-column: span 1; padding: 1.5rem; }
+  .mainCard, .sideCard { grid-column: span 1; padding: 1.5rem; }
 }
 
 @media (max-width: 480px) {

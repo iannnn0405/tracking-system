@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   ArrowLeft,
@@ -8,13 +9,17 @@ import {
   Lock,
   BadgeCheck,
   Eye,
-  EyeOff
+  EyeOff,
+  User
 } from 'lucide-react';
 import { sileo } from 'sileo';
 import { supabase } from '@/lib/supabase';
 import styles from './register.module.css';
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +34,7 @@ export default function RegisterPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback?type=signup`,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
@@ -47,6 +52,101 @@ export default function RegisterPage() {
     } catch (error: any) {
       sileo.error({
         title: 'Google Sign-up Failed',
+        description: error.message || 'Please try again',
+        duration: 4000,
+      });
+      setIsLoading(false);
+    }
+  };
+
+  const handleEmailSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validate inputs
+    if (!fullName.trim()) {
+      sileo.error({
+        title: 'Full Name Required',
+        description: 'Please enter your full name',
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (!email.trim()) {
+      sileo.error({
+        title: 'Email Required',
+        description: 'Please enter your institutional email',
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      sileo.error({
+        title: 'Passwords Do Not Match',
+        description: 'Please make sure your passwords match',
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (!allRequirementsMet) {
+      const unmetReqs = requirements
+        .filter(req => !req.met)
+        .map(req => req.label)
+        .join(', ');
+      sileo.error({
+        title: 'Password requirements not met',
+        description: `Missing: ${unmetReqs}`,
+        duration: 4000,
+      });
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      // Sign up the user with Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+          },
+        },
+      });
+
+      if (authError) throw authError;
+
+      if (!authData.user) {
+        throw new Error('User creation failed');
+      }
+
+      // Save student information to students table
+      const { error: dbError } = await supabase
+        .from('students')
+        .insert({
+          id: authData.user.id,
+          email,
+          full_name: fullName,
+          student_id: '', // Empty for now, will be filled during verification
+        });
+
+      if (dbError) throw dbError;
+
+      sileo.success({
+        title: 'Account created successfully!',
+        description: 'Redirecting to student ID verification...',
+        duration: 2000,
+      });
+
+      setTimeout(() => {
+        router.push('/auth/verify-student-id');
+      }, 2000);
+    } catch (error: any) {
+      sileo.error({
+        title: 'Sign-up Failed',
         description: error.message || 'Please try again',
         duration: 4000,
       });
@@ -186,31 +286,32 @@ export default function RegisterPage() {
           <p className={styles.formSubtitle}>Enter your institutional email to begin.</p>
         </div>
 
-        <form className={styles.form} onSubmit={(e) => {
-          e.preventDefault();
-          
-          // Validate password meets all requirements
-          if (!allRequirementsMet) {
-            const unmetReqs = requirements
-              .filter(req => !req.met)
-              .map(req => req.label)
-              .join(', ');
-            sileo.error({ 
-              title: 'Password requirements not met',
-              description: `Missing: ${unmetReqs}`,
-              duration: 4000
-            });
-            return;
-          }
-          
-          sileo.success({ 
-            title: 'Account creation initiated!',
-            description: 'Your account is being set up. Check your email.',
-            duration: 4000
-          });
-        }}>
+        <form className={styles.form} onSubmit={handleEmailSignUp}>
           <div className={styles.fieldGroup}>
-            <input type="email" id="email" placeholder=" " required autoComplete="email" />
+            <input 
+              type="text" 
+              id="fullName" 
+              placeholder=" " 
+              required 
+              autoComplete="name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+            <label htmlFor="fullName">Full Name</label>
+            <User className={styles.fieldIcon} size={15} />
+            <span className={styles.fieldLine} />
+          </div>
+
+          <div className={styles.fieldGroup}>
+            <input 
+              type="email" 
+              id="email" 
+              placeholder=" " 
+              required 
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <label htmlFor="email">Institutional Email</label>
             <Mail className={styles.fieldIcon} size={15} />
             <span className={styles.fieldLine} />
